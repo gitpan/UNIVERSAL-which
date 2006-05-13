@@ -1,0 +1,6 @@
+Revision history for Perl extension UNIVERSAL::which.
+
+0.01  Sun May 14 03:54:41 2006
+	- original version; created by h2xs 1.23 with options
+		-XAn UNIVERSAL::which
+

@@ -1,0 +1,39 @@
+NAME
+    UNIVERSAL::which - tells fully qualified name of the method
+
+SYNOPSIS
+      use UNIVERSAL::which;
+      use Some::Sub::Class; # which inherits lots of modules
+      # ....
+      my $o   = Some::Sub::Class->new;
+      # in scalar context
+      my $fqn = $o->which("method");
+      # in list context
+      my ($pkg, $name) = $o->which("method");
+
+DESCRIPTION
+    UNIVERSAL::which provides only one method, "which".
+
+    As the name suggests, it returns the fully qualified name of a given
+    method. Sometimes you want to know the true origin of a method but
+    inheritance and AUTOLOAD gets in your way. This module does just that.
+
+SEE ALSO
+    perlobj, UNIVERSAL::canAUTOLOAD
+
+AUTHORS
+    Dan Kogai, <dankogai@dan.co.jp>
+
+    Original idea seeded by: Koichi Taniguchi, <taniguchi@livedoor.jp>
+
+    B::svref_2object trick by: HIO, <hio@hio.jp>
+
+    AUTOLOAD case suggested by: k.daiba, <keiichi@tokyo.pm.org>
+
+COPYRIGHT AND LICENSE
+    Copyright (C) 2006 by Dan Kogai
+
+    This library is free software; you can redistribute it and/or modify it
+    under the same terms as Perl itself, either Perl version 5.8.8 or, at
+    your option, any later version of Perl 5 you may have available.
+
