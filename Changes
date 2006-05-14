@@ -1,4 +1,10 @@
-Revision history for Perl extension UNIVERSAL::which.
+#
+# Revision history for Perl extension UNIVERSAL::which.
+# 
+$Revision: 0.2 $ $Date: 2006/05/14 03:09:45 $
+! t/*.t
+  s/Universal/UNIVERSAL/g
+  *blush* Mac OS X (HFS+ to be more exact) blew my foot again!
 
 0.01  Sun May 14 03:54:41 2006
 	- original version; created by h2xs 1.23 with options

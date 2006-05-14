@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Universal::which;
+use UNIVERSAL::which;
 use Test::More;
 package Foo;
 use Carp;

@@ -2,7 +2,7 @@ package UNIVERSAL::which;
 use 5.008001;
 use strict;
 use warnings;
-our $VERSION = sprintf "%d.%02d", q$Revision: 0.1 $ =~ /(\d+)/g;
+our $VERSION = sprintf "%d.%02d", q$Revision: 0.2 $ =~ /(\d+)/g;
 
 sub UNIVERSAL::which{
     my ($self, $method) = @_;
@@ -43,6 +43,8 @@ UNIVERSAL::which provides only one method, C<which>.
 As the name suggests, it returns the fully qualified name of a given
 method.  Sometimes you want to know the true origin of a method but
 inheritance and AUTOLOAD gets in your way.  This module does just that.
+
+t/*.t illustrates how UNIVERSAL::which behaves more in details.
 
 =head1 SEE ALSO
 
