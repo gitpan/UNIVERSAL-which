@@ -2,7 +2,7 @@ package UNIVERSAL::which;
 use 5.008001;
 use strict;
 use warnings;
-our $VERSION = sprintf "%d.%02d", q$Revision: 0.2 $ =~ /(\d+)/g;
+our $VERSION = sprintf "%d.%02d", q$Revision: 0.3 $ =~ /(\d+)/g;
 
 sub UNIVERSAL::which{
     my ($self, $method) = @_;
@@ -35,6 +35,8 @@ UNIVERSAL::which - tells fully qualified name of the method
   my $fqn = $o->which("method");
   # in list context
   my ($pkg, $name) = $o->which("method");
+  # as function
+  my $fqn = UNIVERSAL::which('Some::Sub::Class', 'method');
 
 =head1 DESCRIPTION
 

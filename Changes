@@ -1,7 +1,13 @@
 #
 # Revision history for Perl extension UNIVERSAL::which.
 # 
-$Revision: 0.2 $ $Date: 2006/05/14 03:09:45 $
+$Revision: 0.3 $ $Date: 2006/05/15 07:47:52 $
+! MANIFEST
+- UNIVERSAL
++ lib/UNIVERSAL
+  Some versions of ExtUtils::MakeMaker fails to install
+  
+$Revision: 0.3 $ $Date: 2006/05/15 07:47:52 $
 ! t/*.t
   s/Universal/UNIVERSAL/g
   *blush* Mac OS X (HFS+ to be more exact) blew my foot again!
