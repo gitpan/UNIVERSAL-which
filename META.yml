@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:                UNIVERSAL-which
-version:             0.05
+version:             0.06
 abstract:            tells fully qualified name of the method
 license:             ~
 generated_by:        ExtUtils::MakeMaker version 6.32

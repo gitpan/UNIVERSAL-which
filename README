@@ -2,7 +2,7 @@ NAME
     UNIVERSAL::which - tells fully qualified name of the method
 
 VERSION
-    $Id: README,v 0.3 2007/05/15 14:54:47 dankogai Exp dankogai $
+    $Id: README,v 0.4 2007/05/15 16:01:20 dankogai Exp dankogai $
 
 SYNOPSIS
       use UNIVERSAL::which;
@@ -24,6 +24,25 @@ DESCRIPTION
     inheritance and AUTOLOAD gets in your way. This module does just that.
 
     t/*.t illustrates how UNIVERSAL::which behaves more in details.
+
+  CAVEAT
+    Consider the code below;
+
+      no warnings 'once';
+      package Foo;
+      my $code = sub { 1 };
+      package Bar;
+      *muge = $code;
+
+    In this case, you get "undef" for "$fq = Bar>which('muge')" while
+    "($pkg, $name) = Bar->which('muge')" is "('Foo', '__ANON__')".
+
+    That way the code snippet works as expeted.
+
+      my $fq = Bar->which('muge'); &$fg if $fg;
+
+    if you get 'Bar::__ANON__' instead, perl will croak on you at the 2nd
+    line.
 
 SEE ALSO
     perlobj, UNIVERSAL::canAUTOLOAD

@@ -1,8 +1,14 @@
 #
 # Revision history for Perl extension UNIVERSAL::which.
 # 
-$Revision: 0.5 $ $Date: 2007/05/15 14:54:00 $
-! lib/lib/UNIVERSAL/which.pm
+$Revision: 0.6 $ $Date: 2007/05/15 16:01:20 $
++ t/05-blessed.t
+! lib/UNIVERSAL/which.pm t/04-anon.t
+  Blessed coderef should work as well.
+  which() w/ scalar context now returns '' for __ANON__.
+
+0.5 2007/05/15 14:54:00
+! lib/UNIVERSAL/which.pm
   POD fixes.
 
 0.4 2007/05/15 14:45:23 (unreleased)

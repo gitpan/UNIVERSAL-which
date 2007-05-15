@@ -6,7 +6,7 @@ use Test::More;
 {
     no warnings 'once';
     package Foo;
-    my $code = sub { 1 };
+    my $code = bless sub { 1 } => 'Foo';
     *moge = \&Bar::muge;
     package Bar;
     *muge = $code;

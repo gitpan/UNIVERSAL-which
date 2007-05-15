@@ -2,7 +2,7 @@ package UNIVERSAL::which;
 use 5.008001;
 use strict;
 use warnings;
-our $VERSION = sprintf "%d.%02d", q$Revision: 0.5 $ =~ /(\d+)/g;
+our $VERSION = sprintf "%d.%02d", q$Revision: 0.6 $ =~ /(\d+)/g;
 
 sub UNIVERSAL::which {
     my ( $self, $method ) = @_;
@@ -11,16 +11,16 @@ sub UNIVERSAL::which {
         $method  = 'AUTOLOAD';
         $coderef = $self->can($method);
     }
-    return unless ref $coderef eq 'CODE';
+    return unless UNIVERSAL::isa($coderef, 'CODE');
     require B;
     my $b       = B::svref_2object($coderef);
-    my $gv      = $b->GV;
     my $cvflags = $b->CvFLAGS;
-    my $pkg     = $gv->STASH->NAME;
+    my $pkg     = $b->GV->STASH->NAME;
     my $fq      =  $pkg . '::' . $method;
     if (! defined(&{$fq}) ){
-	$method = $gv->NAME;
+	$method = $b->GV->NAME;
 	$fq = $pkg . '::' . $method;
+	$fq = undef unless defined(&{$fq}); # double-check
     }
     return wantarray ? ( $pkg, $method, $cvflags ) : $fq;
 }
@@ -35,7 +35,7 @@ UNIVERSAL::which - tells fully qualified name of the method
 
 =head1 VERSION
 
-$Id: which.pm,v 0.5 2007/05/15 14:54:00 dankogai Exp $
+$Id: which.pm,v 0.6 2007/05/15 16:01:20 dankogai Exp dankogai $
 
 =cut
 
@@ -61,6 +61,27 @@ method.  Sometimes you want to know the true origin of a method but
 inheritance and AUTOLOAD gets in your way.  This module does just that.
 
 t/*.t illustrates how UNIVERSAL::which behaves more in details.
+
+=head2 CAVEAT
+
+Consider the code below;
+
+  no warnings 'once';
+  package Foo;
+  my $code = sub { 1 };
+  package Bar;
+  *muge = $code;
+
+In this case, you get C<undef> for C<< $fq = Bar>which('muge') >>
+while C<< ($pkg, $name) = Bar->which('muge') >> is C<('Foo',
+'__ANON__')>.
+
+That way the code snippet works as expeted.
+
+  my $fq = Bar->which('muge'); &$fg if $fg;
+
+if you get 'Bar::__ANON__' instead, perl will croak on you at the 2nd
+line.
 
 =head1 SEE ALSO
 
