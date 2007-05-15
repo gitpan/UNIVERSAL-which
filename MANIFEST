@@ -7,4 +7,6 @@ t/00-load.t
 t/01-base.t
 t/02-autoload.t
 t/03-function.t
+t/04-anon.t
+
 META.yml                                 Module meta-data (added by MakeMaker)

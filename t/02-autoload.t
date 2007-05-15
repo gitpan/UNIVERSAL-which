@@ -5,13 +5,13 @@ use Test::More;
 package Foo;
 use Carp;
 our $DEBUG = 0;
-sub DESTROY {};
+sub DESTROY{};
 sub AUTOLOAD{
     my $method = our $AUTOLOAD;
     $DEBUG and carp $method;
     $method =~ s/.*:://o;
     no strict 'refs';
-    *{$AUTOLOAD} = sub{
+    *{$method} = sub{
 	my $self = shift;
 	$self->{$method} = shift if @_;
 	$self->{$method};
@@ -28,4 +28,3 @@ is($u->which('new'), 'Bar::new');
 is($u->which('foo'), 'Foo::AUTOLOAD');
 $u->foo('bar'); # now Foo::foo is defined by invocation
 is($u->which('foo'), 'Foo::foo');
-

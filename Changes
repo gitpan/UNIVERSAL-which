@@ -1,13 +1,23 @@
 #
 # Revision history for Perl extension UNIVERSAL::which.
 # 
-$Revision: 0.3 $ $Date: 2006/05/15 07:47:52 $
+$Revision: 0.5 $ $Date: 2007/05/15 14:54:00 $
+! lib/lib/UNIVERSAL/which.pm
+  POD fixes.
+
+0.4 2007/05/15 14:45:23 (unreleased)
++ t/04-anon.t
+! lib/UNIVERSAL/which.pm t/03-function.t t/02-autoload.t
+  Addressed the bug noted by MIYAZAKI
+  http://d.hatena.ne.jp/fbis/20070412/1176360713
+
+0.03 2006/05/15 07:47:52
 ! MANIFEST
 - UNIVERSAL
 + lib/UNIVERSAL
   Some versions of ExtUtils::MakeMaker fails to install
   
-$Revision: 0.3 $ $Date: 2006/05/15 07:47:52 $
+0.02 2006/05/14 03:09:45
 ! t/*.t
   s/Universal/UNIVERSAL/g
   *blush* Mac OS X (HFS+ to be more exact) blew my foot again!

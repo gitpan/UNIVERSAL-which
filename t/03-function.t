@@ -11,7 +11,7 @@ sub AUTOLOAD{
     $DEBUG and carp $method;
     $method =~ s/.*:://o;
     no strict 'refs';
-    *{$AUTOLOAD} = sub{
+    *{$method} = sub{
 	my $self = shift;
 	$self->{$method} = shift if @_;
 	$self->{$method};

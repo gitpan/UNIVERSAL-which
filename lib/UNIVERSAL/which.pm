@@ -2,19 +2,27 @@ package UNIVERSAL::which;
 use 5.008001;
 use strict;
 use warnings;
-our $VERSION = sprintf "%d.%02d", q$Revision: 0.3 $ =~ /(\d+)/g;
+our $VERSION = sprintf "%d.%02d", q$Revision: 0.5 $ =~ /(\d+)/g;
 
-sub UNIVERSAL::which{
-    my ($self, $method) = @_;
+sub UNIVERSAL::which {
+    my ( $self, $method ) = @_;
     my $coderef = $self->can($method);
-    unless ($coderef){
-	$method = 'AUTOLOAD';
-	$coderef = $self->can($method);
+    unless ($coderef) {
+        $method  = 'AUTOLOAD';
+        $coderef = $self->can($method);
     }
-    return unless $coderef;
+    return unless ref $coderef eq 'CODE';
     require B;
-    my $pkg =  B::svref_2object($coderef)->GV->STASH->NAME;
-    return wantarray ? ($pkg, $method) : $pkg . '::' . $method;
+    my $b       = B::svref_2object($coderef);
+    my $gv      = $b->GV;
+    my $cvflags = $b->CvFLAGS;
+    my $pkg     = $gv->STASH->NAME;
+    my $fq      =  $pkg . '::' . $method;
+    if (! defined(&{$fq}) ){
+	$method = $gv->NAME;
+	$fq = $pkg . '::' . $method;
+    }
+    return wantarray ? ( $pkg, $method, $cvflags ) : $fq;
 }
 
 1;
@@ -24,6 +32,12 @@ __END__
 =head1 NAME
 
 UNIVERSAL::which - tells fully qualified name of the method
+
+=head1 VERSION
+
+$Id: which.pm,v 0.5 2007/05/15 14:54:00 dankogai Exp $
+
+=cut
 
 =head1 SYNOPSIS
 
@@ -54,17 +68,24 @@ L<perlobj>, L<UNIVERSAL::canAUTOLOAD>
 
 =head1 AUTHORS
 
-Dan Kogai, E<lt>dankogai@dan.co.jpE<gt>
+Dan Kogai, E<lt>dankogai at dan.co.jpE<gt>
+L<http://search.cpan.org/~dankogai/>
 
-Original idea seeded by: Koichi Taniguchi, E<lt>taniguchi@livedoor.jpE<gt>
+Original idea seeded by: TANIGUCHI
+L<http://search.cpan.org/~taniguchi/>
 
-B::svref_2object trick by: HIO, E<lt>hio@hio.jpE<gt>
+B::svref_2object trick by: HIO
+L<http://search.cpan.org/~hio/>
 
-AUTOLOAD case suggested by: k.daiba, E<lt>keiichi@tokyo.pm.orgE<gt>
+AUTOLOAD case suggested by: DAIBA
+L<http://search.cpan.org/~daiba/>
+
+Anon. coderef bug noted by: MIYAZAKI
+L<http://search.cpan.org/~miyazaki/>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (C) 2006 by Dan Kogai
+Copyright (C) 2006-2007 by Dan Kogai
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself, either Perl version 5.8.8 or,

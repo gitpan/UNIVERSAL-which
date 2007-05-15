@@ -1,6 +1,9 @@
 NAME
     UNIVERSAL::which - tells fully qualified name of the method
 
+VERSION
+    $Id: README,v 0.3 2007/05/15 14:54:47 dankogai Exp dankogai $
+
 SYNOPSIS
       use UNIVERSAL::which;
       use Some::Sub::Class; # which inherits lots of modules
@@ -10,6 +13,8 @@ SYNOPSIS
       my $fqn = $o->which("method");
       # in list context
       my ($pkg, $name) = $o->which("method");
+      # as function
+      my $fqn = UNIVERSAL::which('Some::Sub::Class', 'method');
 
 DESCRIPTION
     UNIVERSAL::which provides only one method, "which".
@@ -18,20 +23,24 @@ DESCRIPTION
     method. Sometimes you want to know the true origin of a method but
     inheritance and AUTOLOAD gets in your way. This module does just that.
 
+    t/*.t illustrates how UNIVERSAL::which behaves more in details.
+
 SEE ALSO
     perlobj, UNIVERSAL::canAUTOLOAD
 
 AUTHORS
-    Dan Kogai, <dankogai@dan.co.jp>
+    Dan Kogai, <dankogai at dan.co.jp> <http://search.cpan.org/~dankogai/>
 
-    Original idea seeded by: Koichi Taniguchi, <taniguchi@livedoor.jp>
+    Original idea seeded by: TANIGUCHI <http://search.cpan.org/~taniguchi/>
 
-    B::svref_2object trick by: HIO, <hio@hio.jp>
+    B::svref_2object trick by: HIO <http://search.cpan.org/~hio/>
 
-    AUTOLOAD case suggested by: k.daiba, <keiichi@tokyo.pm.org>
+    AUTOLOAD case suggested by: DAIBA <http://search.cpan.org/~daiba/>
+
+    Anon. coderef bug noted by: MIYAZAKI <http://search.cpan.org/~miyazaki/>
 
 COPYRIGHT AND LICENSE
-    Copyright (C) 2006 by Dan Kogai
+    Copyright (C) 2006-2007 by Dan Kogai
 
     This library is free software; you can redistribute it and/or modify it
     under the same terms as Perl itself, either Perl version 5.8.8 or, at
